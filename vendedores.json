@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "nome": "João da Silva",
+        "cpf": "12345678900",
+        "telefone": "11999999999",
+        "email": "joao@email.com",
+        "percentual_comissao": 5.0,
+        "status": "Ativo"
+    },
+    {
+        "id": 2,
+        "nome": "Thiago Oliveira",
+        "cpf": "98765432100",
+        "telefone": "11988887777",
+        "email": "thiago@email.com",
+        "percentual_comissao": 4.5,
+        "status": "Ativo"
+    }
+]
