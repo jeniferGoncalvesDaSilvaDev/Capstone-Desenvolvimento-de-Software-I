@@ -2,6 +2,7 @@
 
 ## Sobre o projeto
 
+Este projeto está sendo desenvolvido como atividade da disciplina de **Desenvolvimento de Software I**. O objetivo é criar um sistema em Python para gerenciar as operações de compra, venda e aluguel de veículos.
 Este projeto está sendo desenvolvido como atividade da disciplina de **Laboratório de Desenvolvimento de Software I**. O objetivo é criar um sistema em Python para gerenciar as operações de compra, venda e aluguel de veículos.
 
 O sistema busca facilitar o controle das informações dos clientes, vendedores e veículos, além de organizar as transações, calcular valores e comissões e registrar as operações realizadas.
@@ -104,6 +105,7 @@ O acompanhamento das tarefas será realizado pelo JIRA, e o código-fonte ficar�
 
 ## Disciplina
 
+**Desenvolvimento de Software I**
 **Laboratório de Desenvolvimento de Software I**
 
 Projeto acadêmico desenvolvido como parte das atividades da disciplina.
