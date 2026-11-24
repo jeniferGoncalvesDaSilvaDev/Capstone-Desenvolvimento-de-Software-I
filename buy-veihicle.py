@@ -22,7 +22,7 @@ def _load_class_from_file(module_name: str, class_name: str, file_name: str):
 Car = _load_class_from_file("car_form", "Car", "car-form.py")
 Client = _load_class_from_file("form_client", "Client", "form-client.py")
 class BuyVeihicle:
-    def __init__(self, client: Any, car: Any, vendedor: Mapping[str, Any], id: int, buy_date: str, price: float, discount: float):
+    def __init__(self, client: Any, car: Any, vendedor: Mapping[str, Any], id: int, buy_date: str, price: float, discount: float, fiscal_note:bool, date_return:str):
         self.id = id
         self.client = client
         self.car = car
@@ -30,6 +30,8 @@ class BuyVeihicle:
         self.buy_date = buy_date
         self.price=price
         self.discount=discount
+        self.fiscal_note=fiscal_note
+        self.date_return=date_return
 
     def display_info(self):
         print(f"Purchase ID: {self.id}")
@@ -46,8 +48,11 @@ class BuyVeihicle:
         print(f"Status: {self.vendedor.get('status', 'N/A')}")
         print(f"\nBuy Date: {self.buy_date}")
         print(f"Price: {self.price}")
-        
-        
+        print(f"Discount: {self.discount * 100}%")
+        print(f"Fiscal Note: {'Yes' if self.fiscal_note else 'No'}")
+        print(f"Date Return: {self.date_return if self.date_return else 'N/A'}")
+
+
 #test
 if not vendedores.vendedores:
     raise RuntimeError("Cadastre pelo menos um vendedor antes de registrar uma compra.")
@@ -59,6 +64,8 @@ buy_vehicle = BuyVeihicle(
     id=1,
     buy_date="2023-10-01",
     price=25000.0,
-    discount=0.1
+    discount=0.1,
+    fiscal_note=True,
+    date_return="2023-10-15"
 )
 buy_vehicle.display_info()
