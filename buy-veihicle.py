@@ -1,12 +1,14 @@
 #take the class vendedores.py and import it to this file
 #take the class veiculo.py and import it to this file
 #take the form-client.py and import it to this file
+#import the lib fastap
+from fastapi import FastAPI  # type: ignore[import-not-found]
 import importlib.util
 from pathlib import Path
 from typing import Any, Mapping
-
+import uvicorn  # type: ignore[import-not-found]
 import vendedores
-
+app = FastAPI()
 
 def _load_class_from_file(module_name: str, class_name: str, file_name: str):
     module_path = Path(__file__).with_name(file_name)
@@ -46,8 +48,10 @@ class BuyVeihicle:
         print(f"Status: {self.vendedor.get('status', 'N/A')}")
         print(f"\nBuy Date: {self.buy_date}")
         print(f"Price: {self.price}")
-        
-        
+    @app.get("/")
+    def read_root():
+        return {"message": "Welcome to the Buy Vehicle API"}
+
 #test
 if not vendedores.vendedores:
     raise RuntimeError("Cadastre pelo menos um vendedor antes de registrar uma compra.")
@@ -62,3 +66,43 @@ buy_vehicle = BuyVeihicle(
     discount=0.1
 )
 buy_vehicle.display_info()
+#show the information of the purchase in a json format
+@app.get("/purchase/{purchase_id}")
+def read_purchase(purchase_id: int):
+    if purchase_id != buy_vehicle.id:
+        return {"error": "Purchase not found"}
+
+    return {
+        "purchase_id": buy_vehicle.id,
+        "client": {
+            "name": buy_vehicle.client.name,
+            "email": buy_vehicle.client.email,
+            "phone": buy_vehicle.client.phone,
+            "address": buy_vehicle.client.address
+        },
+        "car": {
+            "make": buy_vehicle.car.make,
+            "model": buy_vehicle.car.model,
+            "year": buy_vehicle.car.year,
+            "price": buy_vehicle.car.price,
+            "license_plate": buy_vehicle.car.car_plate,
+            "color": buy_vehicle.car.color,
+            "is_available": buy_vehicle.car.status
+        },
+        "vendedor": {
+            "name": buy_vehicle.vendedor.get("nome", "N/A"),
+            "cpf": buy_vehicle.vendedor.get("cpf", "N/A"),
+            "phone": buy_vehicle.vendedor.get("telefone", "N/A"),
+            "email": buy_vehicle.vendedor.get("email", "N/A"),
+            "commission_percentage": buy_vehicle.vendedor.get("percentual_comissao", "N/A"),
+            "status": buy_vehicle.vendedor.get("status", "N/A")
+        },
+        "buy_date": buy_vehicle.buy_date,
+        "price": buy_vehicle.price,
+        "discount": buy_vehicle.discount
+    }
+    
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
+
