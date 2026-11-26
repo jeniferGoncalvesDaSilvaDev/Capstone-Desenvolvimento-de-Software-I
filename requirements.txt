@@ -1,0 +1,6 @@
+
+fastapi
+uvicorn
+customtkinter
+requests
+pydantic
